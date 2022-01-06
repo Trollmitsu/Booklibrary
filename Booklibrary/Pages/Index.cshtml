@@ -1,0 +1,86 @@
+﻿@page
+@model Booklibrary.Pages.IndexModel
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Welcome</h1>
+
+
+<p>
+    <a asp-page="Create">Create New Book</a>
+</p>
+<div class="container-fluid">
+    <form id="SearchField" method="post">
+        <div class="d-flex">
+            <div class="input-group">
+                <input class="form-control" asp-for="SearchTerm"/>
+                <div class="input-group-append">
+                    <input type="submit" class="btn btn-primary" value="Search" />
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+<a href="C:\Users\asus\source\repos\Booklibrary\Booklibrary\Pages\Index.cshtml"></a>
+<div class="dropdown">
+    <button class="btn dropdown-toggle" asp-page="/Order" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+        Sort
+    </button>
+    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+        <form asp-page-handler="ByCategory" method="post">
+            <button type="submit" class="btn btn-primary">By Genre</button>
+        </form>
+        <form asp-page-handler="ByPrice" method="post">
+            <button type="submit" class="btn btn-primary">By Price</button>
+        </form>
+        <form asp-page-handler="ByAuthor" method="post">
+            <button type="submit" class="btn btn-primary">By Author</button>
+        </form>
+    </div>
+</div>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Book[0].BookName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Book[0].Attributes.Price)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Book[0].Author)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Book[0].Categories)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model.Book)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.BookName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Attributes.Price)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Author.AuthorsName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Categories.Genre)
+                </td>
+                <td>
+                    <a asp-page="./Edit" asp-route-id="@item.Id">Edit</a> |
+                    <a asp-page="./Details" asp-route-id="@item.Id">Details</a> |
+                    <a asp-page="./Delete" asp-route-id="@item.Id">Delete</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
